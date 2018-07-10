@@ -59,6 +59,26 @@
 
 <script>
 
+  const keys = Array.from(document.querySelectorAll('.key'));
+
+  function removeActiveClass(e) {
+    e.target.classList.remove("playing");
+  };
+
+  function play() {
+    const keyCode = this.event.keyCode;
+    const keyEl = document.querySelector(`div[data-key="${keyCode}"]`);
+    const audioEl = document.querySelector(`audio[data-key="${keyCode}"]`);
+
+    if (!audioEl) return;
+
+    keyEl.classList.add("playing");
+    audioEl.currentTime = 0;
+    audioEl.play();
+  };
+
+  keys.forEach(key => key.addEventListener("transitionend", removeActiveClass));
+  window.addEventListener("keydown", play);
 </script>
 
 
